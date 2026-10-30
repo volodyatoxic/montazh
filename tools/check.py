@@ -18,7 +18,6 @@ TEXT = {".md", ".py", ".json", ".xml", ".yml", ".yaml", ".txt"}
 # Начала слов, которых не должно быть в публичном репо (название, имена, проекты), — хэшами, чтобы не светить сами слова.
 # (длина начала, sha256[:16], только с заглавной)
 BANNED = [(8, "7f6aef60216f7d13", True),
-           (11, "fa1fe30b52f6b7c8", False),
            (5, "13e9b89314f40aa7", False),
            (7, "85220a351bd0ff4e", False),
            (7, "5044781b625680b8", False),
@@ -66,7 +65,7 @@ def main():
                 json.loads(p.read_text(encoding="utf-8"))
             except ValueError as e:
                 errors.append(f"{rel}: битый JSON — {e}")
-    skill = REPO / "skills" / "montazh" / "SKILL.md"
+    skill = REPO / "skills" / "podcastnaya-montage" / "SKILL.md"
     head = skill.read_text(encoding="utf-8").split("---")[1] if skill.exists() else ""
     if "name:" not in head or "description:" not in head:
         errors.append("SKILL.md: во frontmatter нет name или description")

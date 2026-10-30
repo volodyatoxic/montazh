@@ -9,7 +9,7 @@ from pathlib import Path
 from common import VERSION, agent, db, ensure, journal, now, read_json, read_jsonl, write_json
 import update
 
-README = """# _agent — рабочая папка монтажёра-агента (montazh)
+README = """# _agent — рабочая папка монтажёра-агента (podcastnaya-montage)
 
 Здесь всё, что агент создал для этого проекта: база (00_db), разбор материала, синхра, расшифровки,
 планы монтажа, графика, проверки. Исходники агент не трогает.

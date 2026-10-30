@@ -1,4 +1,4 @@
-"""Общее для скриптов montazh: папка _agent, база, журнал, ffprobe, подключение к Resolve.
+"""Общее для скриптов podcastnaya-montage: папка _agent, база, журнал, ffprobe, подключение к Resolve.
 
 CLI:  python3 common.py log <проект> "что сделал"     — ручная запись в журнал
 """

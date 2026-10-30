@@ -4,7 +4,7 @@
   python3 update.py --check    — только проверить, ничего не менять
 
 Обновляет только безопасно: ветка main, нет незакоммиченных правок, локальных коммитов нет.
-Иначе — говорит, что мешает (обычно неотправленные правки: см. CONTRIBUTING.md).
+Иначе — говорит, что мешает (обычно неотправленные правки: см. references/contributing.md).
 """
 import subprocess, sys
 from pathlib import Path
@@ -26,7 +26,7 @@ def version():
 
 def news(old):
     """Строки CHANGELOG.md, которых не было в старой версии."""
-    _, before = git("show", f"{old}:skills/montazh/CHANGELOG.md")
+    _, before = git("show", f"{old}:skills/podcastnaya-montage/CHANGELOG.md")
     now = (SKILL / "CHANGELOG.md").read_text(encoding="utf-8") if (SKILL / "CHANGELOG.md").exists() else ""
     return "\n".join(l for l in now.splitlines() if l not in set(before.splitlines())).strip()
 
@@ -35,7 +35,7 @@ def check(apply=True):
     """→ строка для человека или None, если всё актуально. Сеть недоступна — молчит."""
     code, top = git("rev-parse", "--show-toplevel")
     if code:
-        return "⚠ скилл установлен не из git — обновлять нечем. Переустанови по INSTALL.md."
+        return "⚠ скилл установлен не из git — обновлять нечем. Переустанови: склонируй репозиторий и запусти tools/install.py."
     try:
         code, _ = git("fetch", "--quiet", "origin", BRANCH)
     except subprocess.TimeoutExpired:
@@ -48,7 +48,7 @@ def check(apply=True):
     _, dirty = git("status", "--porcelain")
     if not behind:
         if ahead and branch == BRANCH:
-            return f"ℹ в скилле {ahead} неотправленных коммитов на {BRANCH} — отправь (git push или CONTRIBUTING.md)."
+            return f"ℹ в скилле {ahead} неотправленных коммитов на {BRANCH} — отправь (git push или references/contributing.md)."
         return None
     why = []
     if branch != BRANCH:
@@ -58,7 +58,7 @@ def check(apply=True):
     if ahead:
         why.append(f"{ahead} локальных коммитов разошлись с GitHub")
     if why or not apply:
-        tail = f": {'; '.join(why)}. Отправь правки по CONTRIBUTING.md, потом обнови." if why else "."
+        tail = f": {'; '.join(why)}. Отправь правки по references/contributing.md, потом обнови." if why else "."
         return f"⬆ на GitHub новая версия скилла (+{behind} коммитов), не обновляю{tail}"
     old_v, (_, old) = version(), git("rev-parse", "HEAD")
     code, out = git("merge", "--ff-only", f"origin/{BRANCH}")

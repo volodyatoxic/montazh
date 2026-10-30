@@ -1,14 +1,15 @@
 # CHANGELOG
 
 ## 0.3.0 — 30.10.2026
-- Скилл называется `montazh` (команда `/montazh`), пресет глав — `chapters purple`, репозиторий — `montazh`.
+- Новый репозиторий `montazh`, в корне только `skills/` и `tools/`. Порядок дообучения — `references/contributing.md`, подсказки по установке печатает сам `tools/install.py`.
+- Пресет глав называется `chapters purple`.
 - `tools/check.py` не пропускает в репозиторий названия и имена из закрытого списка (список хранится хэшами).
-- Агенту после обновления: запусти `tools/install.py` — он подключит скилл под новым именем.
+- Агенту после обновления: запусти `tools/install.py`.
 
 ## 0.2.0 — 30.10.2026, скилл для всей студии
-- Публичный репозиторий на GitHub, установка одним сообщением в Claude Code (`INSTALL.md`, `tools/install.py`): ссылка на скилл, ffmpeg, numpy, pillow, mlx-whisper, модель распознавания, шрифт Inter, проверка Resolve, git и gh.
+- Публичный репозиторий на GitHub, установка одним сообщением в Claude Code (`tools/install.py`): ссылка на скилл, ffmpeg, numpy, pillow, mlx-whisper, модель распознавания, шрифт Inter, проверка Resolve, git и gh.
 - Автообновление: `agent_init.py` на старте сверяет клон с GitHub (`update.py`) и подтягивает новую версию, если нет неотправленных правок.
-- Дообучение: правки монтажёров уходят pull request'ом (`CONTRIBUTING.md`, `tools/contribute.py`), проверка репозитория `tools/check.py` — локально и в GitHub Actions. Разбор PR — `CLAUDE.md`.
+- Дообучение: правки монтажёров уходят pull request'ом (`references/contributing.md`, `tools/contribute.py`), проверка репозитория `tools/check.py` — локально и в GitHub Actions.
 - `usage.py` считает журнал сессии своей папки, а не самый свежий на компьютере (параллельные сессии путали учёт).
 - `motion_assets.py` ищет шрифт сам: шрифт студии, если стоит → Inter → системный.
 - Агенту после обновления: запусти `tools/install.py` (новые зависимости: pillow, Inter).

@@ -1,4 +1,4 @@
-"""Установка скилла montazh на компьютер монтажёра. Повторный запуск безопасен.
+"""Установка скилла podcastnaya-montage на компьютер монтажёра. Повторный запуск безопасен.
 
   python3 tools/install.py              (Windows: py tools\\install.py)
   python3 tools/install.py --check      — только проверить, ничего не ставить
@@ -11,8 +11,8 @@ import os, platform, re, shutil, subprocess, sys, time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-SKILL = REPO / "skills" / "montazh"
-LINK = Path.home() / ".claude" / "skills" / "montazh"
+SKILL = REPO / "skills" / "podcastnaya-montage"
+LINK = Path.home() / ".claude" / "skills" / "podcastnaya-montage"
 MAC, WIN = platform.system() == "Darwin", platform.system() == "Windows"
 APPLE_SILICON = MAC and platform.machine() == "arm64"
 CHECK = "--check" in sys.argv
@@ -90,7 +90,7 @@ def python_deps():
     ok(f"Python {platform.python_version()} ({sys.executable}): {', '.join(wanted.values())}")
     if not APPLE_SILICON:
         need("расшифровка пока только для Mac на M-чипе (mlx-whisper). На этом компьютере всё, "
-             "кроме расшифровки, работает; её делать на маке — или допиши faster-whisper в transcribe.py (CONTRIBUTING.md)")
+             "кроме расшифровки, работает; её делать на маке — или допиши faster-whisper в transcribe.py (references/contributing.md)")
 
 
 def ffmpeg():
@@ -188,15 +188,19 @@ def git_and_gh():
 
 
 def main():
-    print(f"montazh {(SKILL / 'VERSION').read_text().strip()} · {REPO}\n", flush=True)
+    print(f"podcastnaya-montage {(SKILL / 'VERSION').read_text().strip()} · {REPO}\n", flush=True)
     for step in (link_skill, python_deps, ffmpeg, inter_font, whisper_model, resolve, git_and_gh):
         step()
     print("\n".join(done))
     if todo:
-        print("\nОСТАЛОСЬ:")
+        print("\nОСТАЛОСЬ (что можешь — сделай сам и перезапусти install.py; что может только человек — объясни ему по шагу):")
         print("\n".join(f"• {t}" for t in todo))
     else:
-        print("\nВсё готово. Новая сессия Claude Code в папке съёмки → /montazh")
+        print("\nВсё готово.")
+    print("\nСКАЖИ ЧЕЛОВЕКУ:\n"
+          "• запуск — новая сессия Claude Code в папке съёмки: /podcastnaya-montage разбери материал и сделай первый драфт\n"
+          "• обновлять руками не нужно: при каждом запуске скилл сверяется с GitHub и подтягивает новую версию\n"
+          "• «запомни это в скилл» — агент отправит правку на проверку для всех")
 
 
 if __name__ == "__main__":
